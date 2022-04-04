@@ -40,6 +40,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+cafe_api/node_modules
+cafe_front_app/node_modules
 
 # TypeScript v1 declaration files
 typings/
