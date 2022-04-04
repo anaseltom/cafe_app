@@ -1,0 +1,104 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { getCategoryById } from "../../redux/actions/category/getCategories";
+import { categorySchema } from "../../validations/categoryValidation";
+import Alert from "../../components/alert";
+import { apiURL } from "../../config.json";
+
+function CategoryNew() {
+  let { id } = useParams();
+  const dispatch = useDispatch();
+
+  const categoryForEdit = useSelector((state) => {
+    return state.categoryForEdit;
+  });
+  useEffect(() => {
+    dispatch(getCategoryById(id));
+    if (categoryForEdit) {
+      setEnglishName(categoryForEdit.name_en);
+      setArabicName(categoryForEdit.name_ar);
+    }
+  }, []);
+
+  useEffect(() => {
+    setEnglishName(categoryForEdit.name_en);
+    setArabicName(categoryForEdit.name_ar);
+  }, [categoryForEdit]);
+
+  const [name_en, setEnglishName] = useState("");
+  const [name_ar, setArabicName] = useState("");
+  const [classes, setClasses] = useState("");
+  const [message, setMessage] = useState("");
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+    let formData = {
+      name_en,
+      name_ar,
+    };
+    const isValid = await categorySchema.isValid(formData);
+    if (isValid) {
+      axios
+        .put(`${apiURL}/category/${id}`, formData)
+        .then((res) => {
+          if (res.status == 200) {
+            setClasses("alert alert-success");
+            setMessage("Success");
+            setTimeout(() => {
+              setClasses("");
+              setMessage("");
+            }, 1000);
+          }
+        })
+        .catch((err) => {
+          setClasses("alert alert-danger");
+          setMessage("Failed");
+          setTimeout(() => {
+            setClasses("");
+            setMessage("");
+          }, 1000);
+        });
+    }
+  };
+  return (
+    <>
+      <Form onSubmit={formSubmit}>
+        <FormGroup>
+          <Label foFormr="name_en">English Name</Label>
+          <Input
+            id="name_en"
+            name="name_en"
+            placeholder="Name in english"
+            type="text"
+            value={name_en}
+            onChange={(e) => {
+              setEnglishName(e.target.value);
+            }}
+          />
+          {/* <p>Name is required</p> */}
+        </FormGroup>
+        <FormGroup>
+          <Label foFormr="name_ar">Arabic Name</Label>
+          <Input
+            id="name_ar"
+            name="name_ar"
+            placeholder="Name in Arabic"
+            type="text"
+            value={name_ar}
+            onChange={(e) => {
+              setArabicName(e.target.value);
+            }}
+          />
+          {/* <p>Last name is required.</p> */}
+        </FormGroup>
+        <Button>Update</Button>
+      </Form>
+      <Alert classes={classes} message={message} />
+    </>
+  );
+}
+
+export default CategoryNew;
