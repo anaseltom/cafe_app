@@ -47,7 +47,7 @@ const Starter = () => {
     <div>
       {/***Top Cards***/}
       <Row>
-        <Col sm="6" lg="3">
+        <Col sm="6" lg="4">
           <TopCards
             bg="bg-light-success text-success"
             title="Profit"
@@ -56,16 +56,16 @@ const Starter = () => {
             icon="bi bi-wallet"
           />
         </Col>
-        <Col sm="6" lg="3">
+        <Col sm="6" lg="4">
           <TopCards
             bg="bg-light-danger text-danger"
             title="Refunds"
-            subtitle="Refund given"
+            subtitle="Last Day"
             earning={dayIncome || 0}
             icon="bi bi-coin"
           />
         </Col>
-        <Col sm="6" lg="3">
+        {/* <Col sm="6" lg="3">
           <TopCards
             bg="bg-light-warning text-warning"
             title="New Project"
@@ -73,8 +73,8 @@ const Starter = () => {
             earning="456"
             icon="bi bi-basket3"
           />
-        </Col>
-        <Col sm="6" lg="3">
+        </Col> */}
+        <Col sm="6" lg="4">
           <TopCards
             bg="bg-light-info text-into"
             title="Sales"

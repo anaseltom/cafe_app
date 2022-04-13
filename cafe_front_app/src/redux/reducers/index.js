@@ -9,6 +9,7 @@ import weekReducer from "./dashboardWeek";
 import YearReducer from "./dashboardYear";
 import dayReducer from "./dashboardDay";
 import chartReducer from "./dashboardChart";
+import stockReducer from "./stock";
 
 const rootReducer = combineReducers({
   categories: categoriesReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   year: YearReducer,
   day: dayReducer,
   chart: chartReducer,
+  stock: stockReducer,
 });
 
 export default rootReducer;

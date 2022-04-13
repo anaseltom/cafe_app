@@ -27,22 +27,24 @@ const Category = () => {
   const fieldAction = (data, row) => {
     return (
       <>
-        <Link className="warning ms-5" to={`/product/edit/${data}`}>
-          <Button color="warning" className="ms-5">
-            Edit
-          </Button>
+        <Link className="warning" to={`/product/edit/${data}`}>
+          <i
+            class="bi bi-pencil-square"
+            style={{
+              color: "blue",
+              fontSize: "26px",
+            }}
+          ></i>
         </Link>
 
-        <Button
-          color="danger"
-          className="ms-5"
+        <i
+          class="bi bi-trash-fill ms-4"
+          style={{ color: "red", fontSize: "26px" }}
           onClick={() => {
             setShow(true);
             setId(data);
           }}
-        >
-          Delete
-        </Button>
+        ></i>
       </>
     );
   };
@@ -79,8 +81,9 @@ const Category = () => {
   ];
   return (
     <>
+      <h4 className="">Product List</h4>
       <Link to="/product/new">
-        <Button className="" style={{ float: "right" }}>
+        <Button className="mb-2" style={{ float: "right" }}>
           New product
         </Button>
       </Link>

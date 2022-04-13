@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { getWeek } from "../redux/actions/dashboard/DashboarWeek";
 import { getYear } from "../redux/actions/dashboard/dashboardYear";
 import { getDay } from "../redux/actions/dashboard/dashboardDay";
+
+import { getStock } from "../redux/actions/order/stock";
 import { apiURL } from "../config.json";
 
 //
@@ -19,35 +21,33 @@ const AllOrders = () => {
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
   const [id, setId] = useState(0);
+  const [time, setTime] = useState(1);
 
   const dispatch = useDispatch();
   data = useSelector((state) => {
-    return state.year;
+    return state.stock;
   });
-  console.log(data);
 
   useEffect(() => {
-    dispatch(getYear());
-  }, []);
+    dispatch(getStock(time));
+  }, [time]);
   const fieldAction = (data, row) => {
     return (
       <>
-        <Button
-          color="danger"
-          className="ms-5"
+        <i
+          class="bi bi-trash-fill ms-4"
+          style={{ color: "red", fontSize: "26px" }}
           onClick={() => {
             setShow(true);
             setId(data);
           }}
-        >
-          Delete
-        </Button>
+        ></i>
       </>
     );
   };
   let arr = [];
   let x = [];
-
+  let total = 0;
   const getStringfromOrderArray = (arr) => {
     let str = "";
     arr.forEach((elem) => {
@@ -62,7 +62,9 @@ const AllOrders = () => {
       id: element.id,
       orderString,
       total: element.total,
+      date: element.createdAt,
     });
+    total += element.total;
   });
   const columns = [
     {
@@ -81,13 +83,43 @@ const AllOrders = () => {
       sort: true,
     },
     {
+      dataField: "date",
+      text: "Date",
+      sort: true,
+    },
+    {
       dataField: "id",
-      text: "Delete",
+      text: "Actions",
       formatter: fieldAction,
     },
   ];
   return (
     <>
+      <h4 className="mb-4">Order List</h4>
+      <Button
+        color="info"
+        className="ms-2 mb-3 mt-1 "
+        outline={time === 1 ? "" : true}
+        onClick={() => setTime(1)}
+      >
+        Day
+      </Button>{" "}
+      <Button
+        color="info"
+        className="ms-2 mb-3 mt-1 "
+        outline={time === 2 ? "" : true}
+        onClick={() => setTime(2)}
+      >
+        Week
+      </Button>
+      <Button
+        color="info"
+        className="ms-2 mb-3 mt-1 "
+        outline={time === 3 ? "" : true}
+        onClick={() => setTime(3)}
+      >
+        Month
+      </Button>
       <BootstrapTable
         keyField="id"
         data={arr}
@@ -98,7 +130,7 @@ const AllOrders = () => {
         condensed
         pagination={paginationFactory()}
       />
-
+      <h5>Total is: {total}</h5>
       {show && (
         <Alert>
           <h4>Are you sure you want to delete it?</h4>

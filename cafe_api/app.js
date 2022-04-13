@@ -8,6 +8,7 @@ const productRouter = require("./router/product");
 const userRouter = require("./router/user");
 const orderRouter = require("./router/order");
 const dashboardRouter = require("./router/dashboard");
+const stockRouter = require("./router/stock");
 //sequelize imports
 const { sequelize } = require("./SQL/models");
 
@@ -28,6 +29,7 @@ app.use("/product", productRouter);
 app.use("/user", userRouter);
 app.use("/order", orderRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/stock", stockRouter);
 
 app.listen(serverPort, async () => {
   console.log(`Up on ${serverPort}`);

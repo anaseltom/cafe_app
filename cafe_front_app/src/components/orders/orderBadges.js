@@ -92,7 +92,7 @@ function OrderBadges() {
         </Row>
         <Row>
           <Col>
-            <h2>total is: {countTotal(order)}</h2>
+            <h2>Total is: {countTotal(order)}</h2>
           </Col>
           <Col>
             <Button
