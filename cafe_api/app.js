@@ -11,8 +11,10 @@ const dashboardRouter = require("./router/dashboard");
 const stockRouter = require("./router/stock");
 //sequelize imports
 const { sequelize } = require("./SQL/models");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use(function (req, res, next) {
