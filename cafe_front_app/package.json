@@ -26,7 +26,7 @@
     "react-hook-form": "^7.27.1",
     "react-redux": "^7.2.6",
     "react-router": "^6.2.1",
-    "react-router-dom": "^6.0.0-beta.8",
+    "react-router-dom": "^6.8.0",
     "react-scripts": "4.0.3",
     "react-to-print": "^2.14.4",
     "reactstrap": "^9.0.0",
